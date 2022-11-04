@@ -10,12 +10,14 @@ import VideoPlayer from './components/videoplayer/VideoPlayer'
 import CreatePost from './components/create-post/CreatePost'
 import Web3 from 'web3'
 import MyPost from './abis/Post.json'
+import Detube from './abis/DeTube.json'
 import { useState } from 'react'
 
 function App() {
   // Add variables
   const [account, setAccount] = useState('')
-  const [contractData, setContractData] = useState('')
+  const [postContractData, setPostContractData] = useState('')
+  const [detubeContractData, setDetubeContractData] = useState('')
 
   const loadWeb3 = async () => {
     if (window.ethereum) {
@@ -35,16 +37,28 @@ function App() {
     const accounts = await web3.eth.getAccounts()
     setAccount(accounts[0])
     const networkId = await web3.eth.net.getId()
-    const networkData = MyPost.networks[networkId]
+    const postNetworkData = MyPost.networks[networkId]
+    const detubeNetworkData = Detube.networks[networkId]
 
-    if (networkData) {
+    if (postNetworkData) {
       const abi = MyPost.abi
       const address = MyPost.networks[networkId].address
       const myContract = new web3.eth.Contract(abi, address)
-      setContractData(myContract)
+      setPostContractData(myContract)
     } else {
       window.alert(
-        'Contract is not deployed to the detected network. Connect to the correct network!',
+        'Posts Contract is not deployed to the detected network. Connect to the correct network!',
+      )
+    }
+    
+    if(detubeNetworkData) {
+      const abi = Detube.abi
+      const address = Detube.networks[networkId].address
+      const myContract = new web3.eth.Contract(abi, address)
+      setDetubeContractData(myContract)
+    } else {
+      window.alert(
+        'DeTube Contract is not deployed to the detected network. Connect to the correct network!',
       )
     }
   }
@@ -62,11 +76,13 @@ function App() {
         <Switch>
           <Route exact path="/create-post" component={CreatePost} />
           <Route path="/post-details/:postId">
-            <PostDetails account={account} contractData={contractData} />
+            <PostDetails account={account} contractData={postContractData} />
           </Route>
         </Switch>
-        <Route exact path="/videos" component={VideoGallery} />
-        <Route exact path="/post-video" component={VideoPlayer} />
+        <Route exact path="/detube">
+            <VideoGallery account={account} contractData={detubeContractData} />
+        </Route>
+        <Route exact path="/video" component={VideoPlayer} />
         <Footer />
       </div>
     </Router>

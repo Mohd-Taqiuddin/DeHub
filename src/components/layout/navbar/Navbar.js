@@ -121,7 +121,7 @@ export const Navbar = withRouter(({ account, connectWallet }) => {
               Create Post
             </Button>
 
-            <Button className="whiteLink detube" component={Link} to="/videos">
+            <Button className="whiteLink detube" component={Link} to="/detube">
               Discover DeTube
             </Button>
 
