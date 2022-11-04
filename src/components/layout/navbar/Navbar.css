@@ -11,6 +11,12 @@
     text-transform: capitalize;
 }
 
+.detube {
+    align-content: flex-end !important;
+    align-items: flex-end !important;
+    padding-left: 52rem;
+}
+
 .whiteLink:nth-last-of-type() {
     padding-right: 1rem;
 }

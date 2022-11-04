@@ -105,21 +105,29 @@ export const Navbar = withRouter(({ account, connectWallet }) => {
       <div className="grow">
         <AppBar position="static">
           <Toolbar>
-            <Link to="/" className="whiteLink">
+            {/* <Link to="/" className="whiteLink">
               <img src={logo} alt="logo" className="logo" />
-            </Link>
+            </Link> */}
             <Link to="/" className="whiteLink">
               <Typography className="title" variant="h6" noWrap>
-                DeGram
+                DeHub
               </Typography>
             </Link>
             <Button className="whiteLink" component={Link} to="/">
-              Home
+              Posts
             </Button>
 
             <Button className="whiteLink" component={Link} to="/create-post">
               Create Post
             </Button>
+
+            <Button className="whiteLink detube" component={Link} to="/videos">
+              Discover DeTube
+            </Button>
+
+            {/* <Button className="whiteLink" component={Link} to="/post-video">
+              Post video
+            </Button> */}
 
             <div className="grow" />
             <div className="sectionDesktop">

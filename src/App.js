@@ -5,6 +5,8 @@ import { Navbar } from './components/layout/navbar/Navbar'
 import Footer from './components/layout/footer/Footer'
 import Home from './components/home-container/home/Home'
 import PostDetails from './components/home-container/post-details/PostDetails'
+import VideoGallery from './components/video-gallery/VideoGallery'
+import VideoPlayer from './components/videoplayer/VideoPlayer'
 import CreatePost from './components/create-post/CreatePost'
 import Web3 from 'web3'
 import MyPost from './abis/Post.json'
@@ -63,6 +65,8 @@ function App() {
             <PostDetails account={account} contractData={contractData} />
           </Route>
         </Switch>
+        <Route exact path="/videos" component={VideoGallery} />
+        <Route exact path="/post-video" component={VideoPlayer} />
         <Footer />
       </div>
     </Router>

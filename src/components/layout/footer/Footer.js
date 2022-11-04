@@ -17,11 +17,11 @@ function Footer() {
       <footer>
         <AppBar className="primary-color marginT-3 pad-2" position="static">
           <Grid component={Container} container>
-            <Grid item xs={12} sm={3}>
+            {/* <Grid item xs={12} sm={3}>
               <img src={logo} alt="logo" className="footer-logo" />
-            </Grid>
+            </Grid> */}
 
-            <Grid item xs={12} sm={9} className="links">
+            <Grid item xs={12} sm={8} className="links">
               <Link className="link" component={RouterLink} to="/">
                 Home
               </Link>
@@ -52,13 +52,12 @@ function Footer() {
               </Link>
             </Grid>
 
-            <Grid item xs={12} sm={3}></Grid>
-
-            <Grid item xs={12} sm={9}>
-              <Typography className="copyright">
-                Copyright &copy; {new Date().getFullYear()} DeGram
-              </Typography>
-            </Grid>
+            {/* <Grid item xs={12} sm={12} className="copyright"></Grid> */}
+              {/* <Grid item xs={12} sm={9}>
+                <Typography className="copyright">
+                  Copyright &copy; {new Date().getFullYear()} DeHub
+                </Typography>
+            </Grid> */}
           </Grid>
         </AppBar>
       </footer>

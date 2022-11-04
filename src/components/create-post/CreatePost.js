@@ -74,7 +74,7 @@ function CreatePost() {
           <div className="form-container">
             <form className="form" noValidate autoComplete="off">
               <input
-                accept="image/*"
+                // accept="image/*"
                 className="input"
                 id="icon-button-photo"
                 defaultValue={image}
