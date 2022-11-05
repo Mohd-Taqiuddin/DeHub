@@ -14,6 +14,18 @@
     vertical-align: bottom !important;
   }
 
+  .title {
+    margin: 20px;
+  }
+
+  .videoInfo {
+    margin-left: 20px;
+  }
+
+  p > video {
+    margin: 20px;
+  }
+
   .feed-title {
     font-style: normal;
     font-size: x-large;

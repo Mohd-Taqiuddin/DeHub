@@ -12,6 +12,14 @@ import { Web3Storage } from "web3.storage/dist/bundle.esm.min.js";
 import { token } from '../../WEB3_TOKEN'
 import './VideoGallery.css'
 
+// export const [hash, setHash] = useState("");
+// export const [title, setTitle] = useState("");
+// export const [description, setDescription] = useState("");
+export var currentHash = ""
+export var currentTitle = ""
+export var currentDescription = ""
+export var videos = []
+
 export default function VideoGallery({ account, contractData }) {
     const [postsData, setPostsData] = useState([])
     const [loading, setLoading] = useState(false)
@@ -19,6 +27,7 @@ export default function VideoGallery({ account, contractData }) {
     const [hash, setHash] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
+    const [reload, setReload] = useState(false)
 
     const history = useHistory();
 
@@ -33,6 +42,7 @@ export default function VideoGallery({ account, contractData }) {
             const videosCount = await contractData.methods.videoCount().call()
             console.log(videosCount)
             setVideocount(videosCount);
+            // console.log(videoCount)
 
             // Load videos, sort by newest
             for (var i = videosCount; i >= 1; i--) {
@@ -40,11 +50,21 @@ export default function VideoGallery({ account, contractData }) {
                 setPostsData([...postsData, video]);
             }
 
-            const latest = await contractData.methods.videos(videoCount).call();
+            const latest = await contractData.methods.videos(videosCount).call();
             setHash(latest.hash)
             setTitle(latest.title)
             setDescription(latest.description)
+            currentHash = latest.hash
+            currentTitle = latest.title
+            currentDescription = latest.description
+            videos = postsData
+            // console.log(latest.hash)
+            // console.log(currentHash)
+            // console.log(currentHash)
+            // console.log(currentTitle)
+            // console.log(currentDescription)
             setLoading(false)
+            setReload(true)
         } catch (error) {
             console.log(error)
             setLoading(false)
@@ -53,8 +73,14 @@ export default function VideoGallery({ account, contractData }) {
       loadPosts()
     }, [])
 
-    const handleClick = (event) => {
+    const handleClick = async (event) => {
         console.log("clicked!!");
+        const videosCount = await contractData.methods.videoCount().call()
+        const latest = await contractData.methods.videos(videosCount).call();
+        currentHash = latest.hash
+        currentTitle = latest.title
+        currentDescription = latest.description
+        videos = postsData
         history.push("/video");
     }
   
@@ -67,37 +93,6 @@ export default function VideoGallery({ account, contractData }) {
           ) : (
             <div style={{ flexGrow: 1 }}>
               <Grid container spacing={1}>
-                {/* {postsData.length ? (
-                  postsData.map((post, index) => (
-                    <Grid item xs={6} sm={3} key={index}>
-                      <ImageListItem style={{ height: '480px', listStyle: 'none' }}>
-                        <img src={post.image} alt={post.name} />
-                        <ImageListItemBar
-                          title={post.name}
-                          subtitle={<span>by: {post.description}</span>}
-                          actionIcon={
-                            <IconButton
-                              aria-label={`info about ${post.name}`}
-                              className="icon"
-                            >
-                              <Button
-                                variant="contained"
-                                size="small"
-                                component={Link}
-                                to={`/post-details/${post.cid}`}
-                                className="view-btn"
-                              >
-                                View
-                              </Button>
-                            </IconButton>
-                          }
-                        />
-                      </ImageListItem>
-                    </Grid>
-                  ))
-                ) : (
-                  <h2>No Posts Yet...</h2>
-                )} */}
                 {postsData.length ? (
                     postsData.map((video, key) => {
                     return (
@@ -106,24 +101,28 @@ export default function VideoGallery({ account, contractData }) {
                         style={{ width: "500px", height: "380   px" }}
                         key={key}
                         >
-                        <div className="card-title bg-dark">
+                        <div className="card-title bg-dark title">
                             <small className="text-white">
                             <b>{video.title}</b>
                             </small>
                         </div>
-                        <div>
+                        <div className='videoGallery'>
                             <p
                             onClick={handleClick}
                             >
                                 <video
                                     src={`https://w3s.link/ipfs/${video.hash}`}
-                                    style={{ width: "480px", height: "360px" }}
+                                    style={{ width: "360px", height: "240px" }}
                                 />
-                                <p>
-                                    {video.title}
-                                    {<span>by: {video.author}</span>}
-                                    Description: {video.description}
-                                </p>
+                                <div className='videoInfo'>
+                                    <p>
+                                        {video.title}
+                                        <br/>
+                                        {<span>by: {video.author}</span>}
+                                        <br/>
+                                        Description: {video.description}
+                                    </p>
+                                </div>
                             </p>
                         </div>
                         </div>

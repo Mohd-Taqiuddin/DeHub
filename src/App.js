@@ -86,7 +86,9 @@ function App() {
         <Route exact path="/upload-video">
             <VideoUpload account={account} contractData={detubeContractData} />
         </Route>
-        <Route exact path="/video" component={VideoPlayer} />
+        <Route exact path="/video">
+            <VideoPlayer account={account} contractData={detubeContractData} />
+        </Route>
         <Footer />
       </div>
     </Router>
