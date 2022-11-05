@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function VideoPlayer() {
+export default function VideoPlayer({ account, contractData }) {
   return (
     <div>
-        TEST!
+        TEST
     </div>
   )
 }

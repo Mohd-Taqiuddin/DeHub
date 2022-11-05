@@ -7,6 +7,7 @@ import Home from './components/home-container/home/Home'
 import PostDetails from './components/home-container/post-details/PostDetails'
 import VideoGallery from './components/video-gallery/VideoGallery'
 import VideoPlayer from './components/videoplayer/VideoPlayer'
+import VideoUpload from './components/add-video/VideoUpload'
 import CreatePost from './components/create-post/CreatePost'
 import Web3 from 'web3'
 import MyPost from './abis/Post.json'
@@ -81,6 +82,9 @@ function App() {
         </Switch>
         <Route exact path="/detube">
             <VideoGallery account={account} contractData={detubeContractData} />
+        </Route>
+        <Route exact path="/upload-video">
+            <VideoUpload account={account} contractData={detubeContractData} />
         </Route>
         <Route exact path="/video" component={VideoPlayer} />
         <Footer />

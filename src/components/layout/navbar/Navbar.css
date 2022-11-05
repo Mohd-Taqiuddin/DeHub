@@ -12,9 +12,8 @@
 }
 
 .detube {
-    align-content: flex-end !important;
-    align-items: flex-end !important;
-    padding-left: 52rem;
+    float: right !important;
+    padding: 0 20px;
 }
 
 .whiteLink:nth-last-of-type() {

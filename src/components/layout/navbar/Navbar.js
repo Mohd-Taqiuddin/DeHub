@@ -121,15 +121,14 @@ export const Navbar = withRouter(({ account, connectWallet }) => {
               Create Post
             </Button>
 
-            <Button className="whiteLink detube" component={Link} to="/detube">
-              Discover DeTube
-            </Button>
-
             {/* <Button className="whiteLink" component={Link} to="/post-video">
               Post video
             </Button> */}
 
             <div className="grow" />
+            <Button className="whiteLink detube" component={Link} to="/detube">
+              Discover DeTube
+            </Button>
             <div className="sectionDesktop">
               {/* Add Account  */}
               {
