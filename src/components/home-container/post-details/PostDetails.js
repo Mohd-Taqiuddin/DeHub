@@ -166,7 +166,7 @@ function PostDetails({ account, contractData }) {
                   variant="contained"
                   className="wallet-btn"
                   color="primary"
-                  onClick={mintNFT}
+                  // onClick={mintNFT}
                 >
                   Mint NFT
                 </Button>
