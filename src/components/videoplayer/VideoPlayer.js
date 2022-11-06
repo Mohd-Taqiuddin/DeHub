@@ -5,20 +5,24 @@ import ImageListItem from '@material-ui/core/ImageListItem'
 import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import ImageListItemBar from '@material-ui/core/ImageListItemBar'
-import { Grid } from '@material-ui/core'
+import { Grid, Paper } from '@material-ui/core'
 import '../home-container/gallery/PostGallery.css'
 import { Web3Storage } from "web3.storage/dist/bundle.esm.min.js";
 import { token } from '../../WEB3_TOKEN'
 import { Link } from 'react-router-dom'
 import { SettingsInputAntenna } from '@material-ui/icons';
+import { PropTypes } from '@material-ui/core';
+import withStyles from '@material-ui/core';
 import { currentHash, currentDescription, currentTitle, videos } from '../video-gallery/VideoGallery';
 import '../video-gallery/VideoGallery.css'
+import './VideoPlayer.css'
 
 export default function VideoPlayer({ account, contractData }) {
 
     const [hash, setHash] = useState(currentHash)
     const [title, setTitle] = useState(currentTitle)
     const [description, setDescription] = useState(currentDescription)
+    const [posts, setPosts] = useState([]);
 
     const changeVideo = (latestHash, latestTitle, latestDescription) => {
         setHash(latestHash)
@@ -31,42 +35,43 @@ export default function VideoPlayer({ account, contractData }) {
         console.log(currentTitle)
         console.log(currentDescription)
         console.log(videos)
+        setPosts(videos);
     },[])
 
   return (
     <div>
         <div className="row">
-          <div className="col-md-10">
+          <Grid container spacing={12}>
+          <div className="col-md-10 col1">
+            <Grid item xs={20} style={{paddingLeft: 0, paddingRight: 0}}>
             <div
-              className="embed-responsive embed-responsive-16by9"
-              style={{ maxHeight: "720px" }}
+              className="embed-responsive embed-responsive-16by9 video"
+              style={{ maxheight: "720px" }}
             >
               <video
                 src={`https://w3s.link/ipfs/${currentHash}`}
                 controls
               ></video>
             </div>
-            <div className="mt-3 ml-5">
+            <div className="mt-3 ml-5 videoInfo">
               <h3>
                 <b>
                   <i className="video-title">{title}</i>
                 </b>
               </h3>
+              <b>Description:</b>
+              <p className='videoDescription'>{description}</p>
               <br />
-              <p>{description}</p>
+              <br />
               <div className="mt-3">
-                <p
-                  style={{ fontWeight: "bold" }}
-                >
-                  IPFS CID:
+                <p>
+                  <b>IPFS CID: </b>
                   <span>
                     {currentHash}
                   </span>
                 </p>
-                <p
-                  style={{ fontWeight: "bold" }}
-                >
-                  Share IPFS URL:
+                <p>
+                  <b>Share IPFS URL: </b>
                   <a
                     href={`https://w3s.link/ipfs/${currentHash}`}
                     target="_blank"
@@ -75,11 +80,15 @@ export default function VideoPlayer({ account, contractData }) {
                 </p>
               </div>
             </div>
+            
+            </Grid>
           </div>
           <div
-            className="vide-feed col-md-2 border border-secondary overflow-auto text-center"
-            style={{ maxHeight: "1400px", minWidth: "175px" }}
+            className="video-feed col-md-2 border border-secondary overflow-auto text-center"
+            style={{ maxHeight: "1400px", minWidth: "240px" }}
           >
+            <Grid item xs={20} style={{paddingLeft: 0, paddingRight: 0}}>
+              <Paper>
             <h5 className="feed-title">
               <b>
                 Video Feed
@@ -88,18 +97,13 @@ export default function VideoPlayer({ account, contractData }) {
                 </span>
               </b>
             </h5>
-            {videos.map((video, key) => {
-            //   return (
+            {posts.map((video, key) => {
+              return (
                 <div
                   className="card mb-4 text-center bg-secondary mx-auto"
-                  style={{ width: "250px", height: "175px" }}
+                  style={{ width: "320px", height: "200px" }}
                   key={key}
                 >
-                  <div className="card-title bg-dark">
-                    <small className="text-white">
-                      <b>{video.title}</b>
-                    </small>
-                  </div>
                   <div>
                     <p
                       onClick={() =>
@@ -108,14 +112,22 @@ export default function VideoPlayer({ account, contractData }) {
                     >
                       <video
                         src={`https://w3s.link/ipfs/${video.hash}`}
-                        style={{ width: "200px", height: "110px" }}
+                        style={{ width: "260px", height: "120px" }}
                       />
                     </p>
                   </div>
+                  <div className="card-title bg-dark videoTitle">
+                    <small className="text-white">
+                      <b>{video.title}</b>
+                    </small>
+                  </div>
                 </div>
-            // );
+            );
             })}
+            </Paper>
+            </Grid>
           </div>
+          </Grid>
         </div>
     </div>
   )

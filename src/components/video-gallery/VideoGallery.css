@@ -22,12 +22,20 @@
   margin: 20px;
 }
 
+small > div {
+  font-size: 20px;
+}
+
 .videoInfo {
-  margin-left: 20px;
+  margin-bottom: 10px;
 }
 
 p > video {
   margin: 20px;
+}
+
+.videoGallery {
+  margin-left: 20px;
 }
 
 .feed-title {
@@ -43,16 +51,20 @@ p > video {
   font-size: xx-large;
   font-family: Arial, Helvetica, sans-serif;
 }
+
 .card {
   cursor: pointer;
 }
+
 .card:hover {
   border: 1px solid skyblue;
 }
+
 .footer {
   background-color: lightgray;
   margin-top: 500px;
 }
+
 .footer-links {
   padding-top: 1px;
 }
@@ -106,7 +118,7 @@ input:checked + .slider:before {
 }
 
 .gallery {
-  margin: 20px;
+  margin: 5px;
 }
 
 .slider:before {
@@ -120,3 +132,4 @@ input:checked + .slider:before {
   -webkit-transition: 0.4s;
   transition: 0.4s;
 }
+

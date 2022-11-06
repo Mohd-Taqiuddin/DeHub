@@ -138,29 +138,25 @@ export default function VideoGallery({ account, contractData }) {
                         style={{ width: "500px", height: "380px" }}
                         key={key}
                         >
-                          <div className="card-title bg-dark title">
-                            <small className="text-white">
-                              <b>{video.title}</b>
-                            </small>
-                          </div>
                           <div className='videoGallery'>
-                              <p
-                              onClick={function() {handleClick(video.hash, video.title, video.description)}}
-                              >
-                                  <video
-                                      src={`https://w3s.link/ipfs/${video.hash}`}
-                                      style={{ width: "360px", height: "240px" }}
-                                  />
-                                  <div className='videoInfo'>
-                                      <p>
-                                          {video.title}
-                                          <br/>
-                                          {<span>by: {video.author}</span>}
-                                          <br/>
-                                          Description: {video.description}
-                                      </p>
-                                  </div>
-                              </p>
+                            <h3 className="text-white">
+                              <b>{video.title}</b>
+                            </h3>
+                            <div
+                            onClick={function() {handleClick(video.hash, video.title, video.description)}}
+                            >
+                              <video
+                                  src={`https://w3s.link/ipfs/${video.hash}`}
+                                  style={{ width: "360px", height: "240px" }}
+                              />
+                              <div className='videoInfo'>
+                                  <p>
+                                      {<span><b>by:</b> {video.author}</span>}
+                                      <br/>
+                                      <b>Description:</b> {video.description}
+                                  </p>
+                              </div>
+                            </div>
                           </div>
                         </div>
                       // );
