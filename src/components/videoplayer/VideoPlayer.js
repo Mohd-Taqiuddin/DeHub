@@ -53,7 +53,7 @@ export default function VideoPlayer({ account, contractData }) {
                 </b>
               </h3>
               <br />
-              <i className="video-title">{description}</i>
+              <p>{description}</p>
               <div className="mt-3">
                 <p
                   style={{ fontWeight: "bold" }}
@@ -89,7 +89,7 @@ export default function VideoPlayer({ account, contractData }) {
               </b>
             </h5>
             {videos.map((video, key) => {
-              return (
+            //   return (
                 <div
                   className="card mb-4 text-center bg-secondary mx-auto"
                   style={{ width: "250px", height: "175px" }}
@@ -113,7 +113,7 @@ export default function VideoPlayer({ account, contractData }) {
                     </p>
                   </div>
                 </div>
-              );
+            // );
             })}
           </div>
         </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef  } from 'react'
 import { useHistory, Link } from "react-router-dom";
 import CircularStatic from '../commons/CircularProgressWithLabel'
 import ImageListItem from '@material-ui/core/ImageListItem'
@@ -21,13 +21,16 @@ export var currentDescription = ""
 export var videos = []
 
 export default function VideoGallery({ account, contractData }) {
-    const [postsData, setPostsData] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [postsData, setPostsData] = useState([]);
+    const [loading, setLoading] = useState(false);
     const [videoCount, setVideocount] = useState(0);
     const [hash, setHash] = useState("");
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
-    const [reload, setReload] = useState(false)
+    const [reload, setReload] = useState(false);
+    const [posts, setPosts] = useState(new Set());
+
+    const prevData = useRef([]);
 
     const history = useHistory();
 
@@ -38,17 +41,23 @@ export default function VideoGallery({ account, contractData }) {
     useEffect(() => {
       const loadPosts = async () => {
         try {
-            setLoading(true)
+            setLoading(true);
             const videosCount = await contractData.methods.videoCount().call()
-            console.log(videosCount)
+            // console.log(videosCount);
             setVideocount(videosCount);
-            // console.log(videoCount)
+            console.log("posts "+postsData.length);
+            // console.log(postsData);
 
             // Load videos, sort by newest
-            for (var i = videosCount; i >= 1; i--) {
-                const video = await contractData.methods.videos(i).call();
-                setPostsData([...postsData, video]);
-            }
+            // for (var i = videosCount; i >= 1; i--) {
+            //     const video = await contractData.methods.videos(i).call();
+            //     prevData.current = video
+            //     // console.log(prevData.current)
+            //     // setPosts()
+            //     if(!postsData.includes(video))
+            //       setPostsData([...postsData, video])
+            //     // console.log("i"+i);
+            // }
 
             const latest = await contractData.methods.videos(videosCount).call();
             setHash(latest.hash)
@@ -57,6 +66,10 @@ export default function VideoGallery({ account, contractData }) {
             currentHash = latest.hash
             currentTitle = latest.title
             currentDescription = latest.description
+            // const uniqueSet = new Set(postsData);
+            // const newPosts = [...uniqueSet]
+            // console.log(newPosts.length)
+            // setPostsData(postsData => newPosts)
             videos = postsData
             // console.log(latest.hash)
             // console.log(currentHash)
@@ -66,20 +79,41 @@ export default function VideoGallery({ account, contractData }) {
             setLoading(false)
             setReload(true)
         } catch (error) {
+            // window.alert(
+            //     'Connect wallet or DeTube Contract is not deployed to the detected network. Connect to the correct network!',
+            //   )
             console.log(error)
             setLoading(false)
         }
       }
       loadPosts()
+      setReload(true)
+    }, [videoCount, hash, title, description])
+
+    useEffect(() => {
+      const loadData = async () => {
+        const videosCount = await contractData.methods.videoCount().call()
+            // console.log(videosCount);
+            console.log("posts "+postsData.length);
+            // console.log(postsData);
+
+            // Load videos, sort by newest
+            for (var i = videosCount; i >= 1; i--) {
+                const video = await contractData.methods.videos(i).call();
+                if(!postsData.includes(video))
+                  setPostsData(postsData => [...postsData, video])
+            }
+      }
+      loadData()
     }, [])
 
-    const handleClick = async (event) => {
+    const handleClick = async (latestHash, latestTitle, latestDescription) => {
         console.log("clicked!!");
-        const videosCount = await contractData.methods.videoCount().call()
-        const latest = await contractData.methods.videos(videosCount).call();
-        currentHash = latest.hash
-        currentTitle = latest.title
-        currentDescription = latest.description
+        // const videosCount = await contractData.methods.videoCount().call()
+        // const vids = await contractData.methods.videos().call();
+        currentHash = latestHash
+        currentTitle = latestTitle
+        currentDescription = latestDescription
         videos = postsData
         history.push("/video");
     }
@@ -91,52 +125,58 @@ export default function VideoGallery({ account, contractData }) {
           loading ? (
             <CircularStatic />
           ) : (
-            <div style={{ flexGrow: 1 }}>
-              <Grid container spacing={1}>
-                {postsData.length ? (
-                    postsData.map((video, key) => {
-                    return (
+            <div>
+              <div style={{ flexGrow: 1 }}>
+                <Grid container spacing={1}>
+                  {postsData.length ? (
+                      postsData.map((video, key) => (
+                      // console.log("posts"+postsData.length)
+                      // console.log(postsData)
+                      // return (
                         <div
-                        className="card mb-4 text-center bg-secondary mx-auto"
-                        style={{ width: "500px", height: "380   px" }}
+                        className="card mb-4 text-center bg-secondary mx-auto gallery"
+                        style={{ width: "500px", height: "380px" }}
                         key={key}
                         >
-                        <div className="card-title bg-dark title">
+                          <div className="card-title bg-dark title">
                             <small className="text-white">
-                            <b>{video.title}</b>
+                              <b>{video.title}</b>
                             </small>
+                          </div>
+                          <div className='videoGallery'>
+                              <p
+                              onClick={function() {handleClick(video.hash, video.title, video.description)}}
+                              >
+                                  <video
+                                      src={`https://w3s.link/ipfs/${video.hash}`}
+                                      style={{ width: "360px", height: "240px" }}
+                                  />
+                                  <div className='videoInfo'>
+                                      <p>
+                                          {video.title}
+                                          <br/>
+                                          {<span>by: {video.author}</span>}
+                                          <br/>
+                                          Description: {video.description}
+                                      </p>
+                                  </div>
+                              </p>
+                          </div>
                         </div>
-                        <div className='videoGallery'>
-                            <p
-                            onClick={handleClick}
-                            >
-                                <video
-                                    src={`https://w3s.link/ipfs/${video.hash}`}
-                                    style={{ width: "360px", height: "240px" }}
-                                />
-                                <div className='videoInfo'>
-                                    <p>
-                                        {video.title}
-                                        <br/>
-                                        {<span>by: {video.author}</span>}
-                                        <br/>
-                                        Description: {video.description}
-                                    </p>
-                                </div>
-                            </p>
-                        </div>
-                        </div>
-                    );
-                    })) : (
-                        <h2>No Videos Yet...</h2>
-
-                    )
-                }
-              </Grid>
-              <p className='uploadLink'>
-                    Share a video?
-                    <Link to="/upload-video">Click here</Link>
-                </p>
+                      // );
+                      ))) : (
+                          <h2>No Videos Yet...</h2>
+                      )
+                  }
+                </Grid>
+              </div>
+              <div className='uploadLink'>
+                <br />
+                <br />
+                <br />
+                  Share a video?
+                  <Link to="/upload-video">Click here</Link>
+              </div>
             </div>
           )
         }
