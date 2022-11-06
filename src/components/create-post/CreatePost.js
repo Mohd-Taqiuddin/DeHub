@@ -56,7 +56,7 @@ function CreatePost() {
     <StylesProvider injectFirst>
       <Container
         className="root-create-post"
-        style={{ minHeight: '70vh', paddingBottom: '3rem' }}
+        style={{ minHeight: '90vh', paddingBottom: '3rem' }}
       >
         <div>
           <Typography className="title" color="textPrimary" gutterBottom>

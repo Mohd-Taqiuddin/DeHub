@@ -11,15 +11,17 @@
     text-align: center;
 }
 
-.input {
+.input1 {
     display: 'none';
 }
 
-.form-container {
-    border: 1px solid #0000003d;
+.form-container1 {
+    border: 2px solid #2a162a3d;
+    text-align: center;
+    margin: auto;
 }
 
-form {
+form1 {
     padding: 1rem;
 }
 
@@ -28,6 +30,6 @@ form {
     padding-bottom: 1rem;
 }
 
-.text-field {
+.text-field1 {
     padding-bottom: 1rem;
 }

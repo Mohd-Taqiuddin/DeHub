@@ -12,7 +12,17 @@ import { Web3Storage } from "web3.storage/dist/bundle.esm.min.js";
 import { token } from '../../WEB3_TOKEN'
 import { Link } from 'react-router-dom'
 import { SettingsInputAntenna } from '@material-ui/icons';
+import PhotoCamera from '@material-ui/icons/PhotoCamera'
+import {
+    TextField,
+    Container,
+    StylesProvider,
+    Typography,
+    MenuItem,
+  } from '@material-ui/core'
+import VideoFileIcon from '@mui/icons-material/VideoFile';
 import '../video-gallery/VideoGallery.css';
+import './VideoUpload.css';
 
 
 function VideoUpload({ account, contractData }) {
@@ -62,50 +72,125 @@ function VideoUpload({ account, contractData }) {
     // }
 
     return (
-        <form
-            onSubmit={(event) => {
-                event.preventDefault();
-                setTitle(event.target.value);
-                upload();
-            }}
-        >
-            &nbsp;
-            <input
-                type="file"
-                accept=".mp4, .mov, .mkv .ogg .wmv"
-                onChange={captureFile}
-                style={{ width: "250px" }}
-            />
-            <div className="form-group mr-sm-2">
-                <input
-                    id="videoTitle"
-                    type="text"
-                    onChange={(e) => setTitle(e.target.value)}
-                    defaultValue={title}
-                    className="form-control-sm mt-3 mr-3"
-                    placeholder="Video Title"
-                    required
-                />
-            </div>
-            <div className="form-group mr-lg-6">
-                <input
-                    id="videoDescription"
-                    type="text"
-                    onChange={(e) => setDescription(e.target.value)}
-                    defaultValue={description}
-                    className="form-control-lg mt-3 mr-3"
-                    placeholder="Video Description"
-                    required
-                />
-            </div>
-            <button
-            type="submit"
-            className="btn border border-dark btn-primary btn-block btn-sm"
+        // <form
+        //     onSubmit={(event) => {
+        //         event.preventDefault();
+        //         setTitle(event.target.value);
+        //         upload();
+        //     }}
+        // >
+        //     &nbsp;
+        //     <input
+        //         type="file"
+        //         accept=".mp4, .mov, .mkv .ogg .wmv"
+        //         onChange={captureFile}
+        //         style={{ width: "250px" }}
+        //     />
+        //     <div className="form-group mr-sm-2">
+        //         <input
+        //             id="videoTitle"
+        //             type="text"
+        //             onChange={(e) => setTitle(e.target.value)}
+        //             defaultValue={title}
+        //             className="form-control-sm mt-3 mr-3"
+        //             placeholder="Video Title"
+        //             required
+        //         />
+        //     </div>
+        //     <div className="form-group mr-lg-6">
+        //         <input
+        //             id="videoDescription"
+        //             type="text"
+        //             onChange={(e) => setDescription(e.target.value)}
+        //             defaultValue={description}
+        //             className="form-control-lg mt-3 mr-3"
+        //             placeholder="Video Description"
+        //             required
+        //         />
+        //     </div>
+        //     <button
+        //     type="submit"
+        //     className="btn border border-dark btn-primary btn-block btn-sm"
+        //     >
+        //     Upload
+        //     </button>
+        //     &nbsp;
+        // </form>
+        <StylesProvider injectFirst>
+            <Container
+                className="root-create-post"
+                style={{ minHeight: '90vh', paddingBottom: '3rem' }}
             >
-            Upload
-            </button>
-            &nbsp;
-        </form>
+                <div>
+                    <Typography className="title" color="textPrimary" gutterBottom>
+                        Add a video to share
+                    </Typography>
+                    <div className="form-container1">
+                        <form className="form1" noValidate autoComplete="off">
+                        <input
+                            accept=".mp4, .mov, .mkv .ogg .wmv"
+                            className="input1"
+                            id="icon-button-photo"
+                            onChange={captureFile}
+                            type="file"
+                        />
+                        <label htmlFor="icon-button-photo">
+                            <IconButton color="primary" component="span">
+                            <VideoFileIcon />
+                            </IconButton>
+                        </label>
+                        <TextField
+                            fullWidth
+                            id="outlined-basic"
+                            label="Video Title"
+                            variant="outlined"
+                            className="text-field1"
+                            defaultValue={title}
+                            onChange={(e) => setTitle(e.target.value)}
+                        />
+                        <TextField
+                            fullWidth
+                            id="outlined-basic"
+                            multiline
+                            rows={4}
+                            label="Video Description"
+                            variant="outlined"
+                            className="text-field1"
+                            defaultValue={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />
+                        {/* <TextField
+                            fullWidth
+                            name="petType"
+                            select
+                            label="Choose one option"
+                            variant="outlined"
+                            className="text-field"
+                            onChange={(e) => setPetType(e.target.value)}
+                            defaultValue=""
+                            ref={petTypeRef}
+                        > */}
+                            {/* <MenuItem value="Cat">Cat</MenuItem>
+                            <MenuItem value="Dog">Dog</MenuItem>
+                            <MenuItem value="Bird">Bird</MenuItem>
+                            <MenuItem value="Fish">Fish</MenuItem>
+                            <MenuItem value="Other">Other</MenuItem>
+                        </TextField> */}
+                        <Button
+                            size="large"
+                            variant="contained"
+                            color="primary"
+                            onClick={ () =>{
+                                upload();
+                            }}
+                        >
+                            Submit
+                        </Button>
+                        </form>
+                    </div>
+                </div>
+            </Container>
+        </StylesProvider>
     )
 }
 

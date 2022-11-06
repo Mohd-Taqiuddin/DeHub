@@ -50,6 +50,8 @@ function Footer() {
               <Link className="link" component={RouterLink} to="/">
                 Privacy
               </Link>
+              <br />
+              <br />
             </Grid>
 
             {/* <Grid item xs={12} sm={12} className="copyright"></Grid> */}
