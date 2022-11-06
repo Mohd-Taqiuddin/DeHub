@@ -99,6 +99,7 @@ export default function VideoPlayer({ account, contractData }) {
             </h5>
             {posts.map((video, key) => {
               return (
+                <Paper>
                 <div
                   className="card mb-4 text-center bg-secondary mx-auto"
                   style={{ width: "320px", height: "200px" }}
@@ -122,6 +123,7 @@ export default function VideoPlayer({ account, contractData }) {
                     </small>
                   </div>
                 </div>
+                </Paper>
             );
             })}
             </Paper>

@@ -5,7 +5,7 @@ import ImageListItem from '@material-ui/core/ImageListItem'
 import IconButton from '@material-ui/core/IconButton'
 import Button from '@material-ui/core/Button'
 import ImageListItemBar from '@material-ui/core/ImageListItemBar'
-import { Grid } from '@material-ui/core'
+import { Grid, Paper } from '@material-ui/core'
 import '../home-container/gallery/PostGallery.css'
 import VideoPlayer from '../videoplayer/VideoPlayer'
 import { Web3Storage } from "web3.storage/dist/bundle.esm.min.js";
@@ -133,13 +133,14 @@ export default function VideoGallery({ account, contractData }) {
                       // console.log("posts"+postsData.length)
                       // console.log(postsData)
                       // return (
+                        <Paper className='paper'>
                         <div
                         className="card mb-4 text-center bg-secondary mx-auto gallery"
                         style={{ width: "500px", height: "380px" }}
                         key={key}
                         >
                           <div className='videoGallery'>
-                            <h3 className="text-white">
+                            <h3 className="text-white title">
                               <b>{video.title}</b>
                             </h3>
                             <div
@@ -147,7 +148,7 @@ export default function VideoGallery({ account, contractData }) {
                             >
                               <video
                                   src={`https://w3s.link/ipfs/${video.hash}`}
-                                  style={{ width: "360px", height: "240px" }}
+                                  style={{ width: "440px", height: "240px" }}
                               />
                               <div className='videoInfo'>
                                   <p>
@@ -159,6 +160,7 @@ export default function VideoGallery({ account, contractData }) {
                             </div>
                           </div>
                         </div>
+                        </Paper>
                       // );
                       ))) : (
                           <h2>No Videos Yet...</h2>

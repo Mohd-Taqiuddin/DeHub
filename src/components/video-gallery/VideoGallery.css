@@ -5,8 +5,14 @@
 }
 /* Optional: show position indicator in red */
 ::-webkit-scrollbar-thumb {
-  border-radius: 2px;
+  border-radius: 10px;
+  width: 4px !important;
   background: skyblue;
+}
+
+.paper {
+  margin: 1.3px !important;
+  margin-bottom: 8px !important;
 }
 
 .uploadLink {
@@ -27,7 +33,7 @@ small > div {
 }
 
 .videoInfo {
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 p > video {
@@ -35,7 +41,7 @@ p > video {
 }
 
 .videoGallery {
-  margin-left: 20px;
+  margin-left: 20px !important;
 }
 
 .feed-title {
@@ -46,7 +52,7 @@ p > video {
 }
 
 .video-title {
-  margin-left: 10px;
+  margin-left: 20px;
   font-style: normal;
   font-size: xx-large;
   font-family: Arial, Helvetica, sans-serif;
@@ -67,6 +73,10 @@ p > video {
 
 .footer-links {
   padding-top: 1px;
+}
+
+.title {
+
 }
 
 .switch {
