@@ -19,6 +19,8 @@ import {
 } from '@material-ui/core'
 import './PostDetails.css'
 import { apiKey } from '../../../APIKEYS'
+import {RiHeart3Fill,RiHeart3Line} from 'react-icons/ri';
+import { dataPost } from '../gallery/PostGallery'
 
 
 function PostDetails({ account, contractData }) {
@@ -29,15 +31,25 @@ function PostDetails({ account, contractData }) {
   const [postOwner, setOwnerName] = useState('')
   const [postCategory, setPostCategory] = useState('')
   const [input, setInput] = useState('')
-  const [comment, setComment] = useState('')
+  const [comment, setComment] = useState([])
   const [codeHash, setCodeHash] = useState('')
+  const [likes, setLikes] = useState(0)
+  const [load, setLoad] = useState(0)
+  const addresses = []
 
   useEffect(() => {
     if (postId) {
       getMetadata()
       getImage()
+      // addresses.push(account);
+      // addresses.push(account);
+      // addresses.push(account);
+      console.log('addresses'+addresses)
+      // console.log(typeof(account))
+      // console.log(addresses)
+      loadData()
     }
-  }, [postId, contractData])
+  }, [postId, contractData, postName])
 
   const getImage = (ipfsURL) => {
     if (!ipfsURL) return
@@ -56,6 +68,25 @@ function PostDetails({ account, contractData }) {
     setPostCategory(postCategory)
   }
 
+  const loadData = async () => {
+    const totalLikes = await contractData.methods.likes(postName).call()
+    // const commentsCount = await contractData.methods.commentCount().call()
+    console.log('likes '+totalLikes)
+    const commentData = await contractData.methods.comments(account, postName).call()
+    console.log(commentData)
+    // for (var i = commentsCount; i >= 1; i--) {
+    //   const commentData = await contractData.methods.comments().call();
+    //   setComment(comment => [...comment, commentData]);
+    // }
+    // console.log(dataPost)
+    // console.log(postName)
+    if(dataPost !== undefined && dataPost.name===postName){
+      setLikes(totalLikes);
+      setComment(comment => [...comment, commentData]);
+    }
+    
+  }
+
   const mintNFT = async (postId) => {
     try {
       const data = await contractData.methods
@@ -69,28 +100,69 @@ function PostDetails({ account, contractData }) {
   }
 
   const handleChange = (event) => {
-    setInput(event.target.value)
+    setInput(event.target.value);
   }
   
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault()
-    setComment(input)
-    setInput('')
+    setComment(comment => [...comment, input])
+    const data = await contractData.methods
+      .commentOperation(input, postName)
+      .send({ from: account })
+      .on("transactionHash", (hash) => {
+        setInput('')
+      });
+  }
+
+  const toggleLike = async (account) => {
+    var index = addresses.indexOf(account);
+    console.log(index);
+    console.log(addresses);
+    if(index === -1){
+      const like = await contractData.methods
+        .likeIncrement(postName)
+        .send({ from: account })
+        .on("transactionHash", (hash) => {
+          addresses.push(account);
+          console.log('push...'+addresses);
+          setLikes(likes+1);
+        });      
+    } else {
+      const like = await contractData.methods
+      .likeDecrement(postName)
+      .send({ from: account })
+      .on("transactionHash", (hash) => {
+        addresses.splice(index, 1);
+        console.log('splice...'+addresses)
+      });
+      // var index = addresses.indexOf(account);
+      // if (index !== -1) {
+      // }
+      setLikes(likes-1);
+    }
   }
 
   return (
     <StylesProvider injectFirst>
       <Container
         className="root-post-details"
-        style={{ minHeight: '50vh', paddingBottom: '3rem' }}
+        style={{ minHeight: '85vh', paddingBottom: '3rem' }}
       >
         <div className="">
           <Grid container spacing={3}>
             <Grid item xs={12} sm={6} className="grid-container">
               {/* Add post details */}
               <div className="flex-container">
-                <h2>{`${postName} the ${postCategory}`}</h2>
-                <Button
+                <h2>{`${postName}`}</h2>
+                { 
+                  codeHash.transactionHash? <Button
+                  variant="contained"
+                  className="wallet-btn"
+                  color="primary"
+                  onClick={mintNFT}
+                >
+                  NFT Minted
+                </Button>:<Button
                   variant="contained"
                   className="wallet-btn"
                   color="primary"
@@ -98,23 +170,33 @@ function PostDetails({ account, contractData }) {
                 >
                   Mint NFT
                 </Button>
+              }
               </div>
 
               <img className="img" src={image} alt="post" />
               <div className="flex-container">
                 <div>
-                  <IconButton aria-label="add to favorites">
+                  {/* <IconButton aria-label="add to favorites">
                     <FavoriteIcon />
+                  </IconButton> */}
+                  <IconButton
+                    edge="end"
+                    aria-label="likes"
+                    onClick={() => {toggleLike(account)}}
+                    color="inherit"
+                  >
+                    <Typography variant="body1" color="primary">
+                      {likes}
+                    </Typography>
+                    {
+                      (likes>0)? <RiHeart3Fill /> : <RiHeart3Line />
+                    }
                   </IconButton>
 
                   <IconButton aria-label="share">
                     <ShareIcon />
                   </IconButton>
                 </div>
-
-                <Typography variant="body1" color="primary">
-                  0 Likes
-                </Typography>
               </div>
 
               <Typography gutterBottom variant="subtitle1" className="details-text">

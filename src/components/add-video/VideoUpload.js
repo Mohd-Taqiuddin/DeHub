@@ -72,50 +72,6 @@ function VideoUpload({ account, contractData }) {
     // }
 
     return (
-        // <form
-        //     onSubmit={(event) => {
-        //         event.preventDefault();
-        //         setTitle(event.target.value);
-        //         upload();
-        //     }}
-        // >
-        //     &nbsp;
-        //     <input
-        //         type="file"
-        //         accept=".mp4, .mov, .mkv .ogg .wmv"
-        //         onChange={captureFile}
-        //         style={{ width: "250px" }}
-        //     />
-        //     <div className="form-group mr-sm-2">
-        //         <input
-        //             id="videoTitle"
-        //             type="text"
-        //             onChange={(e) => setTitle(e.target.value)}
-        //             defaultValue={title}
-        //             className="form-control-sm mt-3 mr-3"
-        //             placeholder="Video Title"
-        //             required
-        //         />
-        //     </div>
-        //     <div className="form-group mr-lg-6">
-        //         <input
-        //             id="videoDescription"
-        //             type="text"
-        //             onChange={(e) => setDescription(e.target.value)}
-        //             defaultValue={description}
-        //             className="form-control-lg mt-3 mr-3"
-        //             placeholder="Video Description"
-        //             required
-        //         />
-        //     </div>
-        //     <button
-        //     type="submit"
-        //     className="btn border border-dark btn-primary btn-block btn-sm"
-        //     >
-        //     Upload
-        //     </button>
-        //     &nbsp;
-        // </form>
         <StylesProvider injectFirst>
             <Container
                 className="root-create-post"

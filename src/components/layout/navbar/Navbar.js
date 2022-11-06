@@ -5,23 +5,27 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import IconButton from '@material-ui/core/IconButton'
 import Typography from '@material-ui/core/Typography'
-import VerifiedUserSharpIcon from '@material-ui/icons/VerifiedUserSharp'
-import InputBase from '@material-ui/core/InputBase'
-import Badge from '@material-ui/core/Badge'
+import VerifiedUserSharpIcon from '@material-ui/icons/VerifiedUserSharp';
+import InputBase from '@material-ui/core/InputBase';
+import Badge from '@material-ui/core/Badge';
 import MenuItem from '@material-ui/core/MenuItem'
-import Menu from '@material-ui/core/Menu'
+import Menu from '@material-ui/core/Menu';
 import SearchIcon from '@material-ui/icons/Search'
 import AccountCircle from '@material-ui/icons/AccountCircle'
-import MailIcon from '@material-ui/icons/Mail'
+import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications'
-import MoreIcon from '@material-ui/icons/MoreVert'
-import { StylesProvider } from '@material-ui/core/styles'
-import './Navbar.css'
-import logo from '../../../images/logo.jpg'
+import MoreIcon from '@material-ui/icons/MoreVert';
+import { StylesProvider } from '@material-ui/core/styles';
+import './Navbar.css';
+import logo from '../../../images/logo.jpg';
+import PlayCircleIcon from '@mui/icons-material/PlayCircle';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from '@mui/icons-material/LightMode';
 
 export const Navbar = withRouter(({ account, connectWallet }) => {
   const [anchorEl, setAnchorEl] = useState(null)
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null)
+  const [darkMode, setDarkMode] = useState(false);
 
   const isMenuOpen = Boolean(anchorEl)
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl)
@@ -42,6 +46,10 @@ export const Navbar = withRouter(({ account, connectWallet }) => {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget)
   }
+
+  const toggleTheme = () => {
+    setDarkMode(!darkMode);
+  };
 
   const menuId = 'primary-search-account-menu'
   const renderMenu = (
@@ -127,6 +135,7 @@ export const Navbar = withRouter(({ account, connectWallet }) => {
 
             <div className="grow" />
             <Button className="whiteLink detube" component={Link} to="/detube">
+              <PlayCircleIcon />
               Discover DeTube
             </Button>
             <div className="sectionDesktop">
@@ -168,6 +177,14 @@ export const Navbar = withRouter(({ account, connectWallet }) => {
               >
                 <AccountCircle />
               </IconButton>
+              {/* <IconButton
+                edge="end"
+                aria-label="theme"
+                onClick={toggleTheme}
+                color="inherit"
+              >
+                { darkMode? <DarkModeIcon />: <LightModeIcon />}
+              </IconButton> */}
             </div>
             <div className="sectionMobile">
               <IconButton

@@ -7,12 +7,15 @@ import ImageListItemBar from '@material-ui/core/ImageListItemBar'
 import { Grid } from '@material-ui/core'
 import './PostGallery.css'
 import { apiKey } from '../../../APIKEYS'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 
+export var dataPost = []
 
 function PostGallery() {
   const [postsData, setPostsData] = useState([])
   const [loading, setLoading] = useState(false)
+
+  const history = useHistory();
 
   useEffect(() => {
     const loadPosts = async () => {
@@ -45,15 +48,22 @@ function PostGallery() {
             temp.push(data)
           }
         }
-        setPostsData(temp)
-        setLoading(false)
+        setPostsData(temp);
+        // dataPost = temp;
+        setLoading(false);
       } catch (error) {
-        console.log(error)
-        setLoading(false)
+        console.log(error);
+        setLoading(false);
       }
     }
     loadPosts()
   }, [])
+
+  const handleClick = (post) => {
+    dataPost = post;
+    let url = '/post-details/'+post.cid
+    history.push(url);
+  }
 
   return (
     <div style={{ minHeight: '70vh', paddingBottom: '3rem' }}>
@@ -67,7 +77,7 @@ function PostGallery() {
               {postsData.length ? (
                 postsData.map((post, index) => (
                   <Grid item xs={6} sm={3} key={index}>
-                    <ImageListItem style={{ height: '450px', listStyle: 'none' }}>
+                    <ImageListItem style={{ height: '320px', listStyle: 'none' }}>
                       <img src={post.image} alt={post.name} />
                       <ImageListItemBar
                         title={post.name}
@@ -80,8 +90,9 @@ function PostGallery() {
                             <Button
                               variant="contained"
                               size="small"
-                              component={Link}
-                              to={`/post-details/${post.cid}`}
+                              // component={Link}
+                              // to={`/post-details/${post.cid}`}
+                              onClick={() => {handleClick(post)}}
                               className="view-btn"
                             >
                               View
