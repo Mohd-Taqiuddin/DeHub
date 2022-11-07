@@ -5,6 +5,9 @@ Dehub is a decentralized version of the Instagram platform where users can brows
 
 And it has a video sharing platform DeTube, it uploads the video files to IPFS by using web3.storage and stores those IPFS CIDs to the blockchain network.
 
+## Demo
+- [Home Page](https://nameless-heart-3261.on.fleek.co/)
+
 
 # Development instructions
 ## Installation 
@@ -38,4 +41,14 @@ OR, To develop on ganache blockchain, open ganache and import the accounts by ad
 > ⚠️ If dealing with “JavaScript heap out of memory” error after `npm start` then use the following command to solve it: For Linux/macOs: `export NODE_OPTIONS="--max-old-space-size=8192"` 
 For Windows: `$env:NODE_OPTIONS="--max-old-space-size=8192"`
 
-
+# How it's made
+DeHub application makes use of the following softwares:
+* Deployed smart contracts on the `Polygon (Matic)` Mumbai test network.
+* Used `Truffle & MetaMask`.
+* Upload and store files to `IPFS NFTStorage` [IPFS](https://nft.storage/) platform.
+* Upload and store video files to `IPFS Web3Storage` [IPFS](https://web3.storage/) platform.
+* Built two simple `Solidity ` smart contract, one for minting NFTs, creating posts and operations interacting with the contract and the other for video sharing (DeTube)
+* `OpenZeppelin` Library to customize smart contract
+* Develop, deploy, and run tests the application with `Ganache` (local blockchain)
+* Build and use `React Js` to create components for single-page applications.
+* `Material-UI` to build faster, beautiful, and more accessible React applications.
