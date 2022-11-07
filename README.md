@@ -53,6 +53,10 @@ DeHub application makes use of the following softwares:
 * Build and use `React Js` to create components for single-page applications.
 * `Material-UI` to build faster, beautiful, and more accessible React applications.
 
+* [nft.storage usgae in the DApp(line 40)](https://github.com/Mohd-Taqiuddin/DeHub/blob/master/src/components/create-post/CreatePost.js)
+* [web3.storage usgae in the DApp(line 36)](https://github.com/Mohd-Taqiuddin/DeHub/blob/master/src/components/add-video/VideoUpload.js)
+
+
 # Host the DApp on IPFS using Fleek
 You cannot call this project a "Decentralized Application" if you are hosting it on any centralized server. To make it decentralized, again we're going to use IPFS.
 Create a new repository on GitHub and push all the changes.
