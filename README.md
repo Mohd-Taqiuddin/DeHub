@@ -11,9 +11,13 @@ And it has a video sharing platform DeTube, it uploads the video files to IPFS b
 Make sure you have truffle installed on your computer.
 ### `npm install -g truffle`
 
+Install dependencies
 ### `npm i`
 
+Compile the smart contracts
 ### `truffle compile`
+
+Deploy the smart contract
 ### `truffle migrate --network matic`
 
 Make sure to add your 12 word Secret Recovery Phrase of your (preferably newly generated and testnet-only) MetaMask wallet in .env with the variable name REACT_APP_MNEMONIC. This will be loaded by truffle at runtime, and the environment variable can then be accessed with process.env.REACT_APP_MNEMONIC.
@@ -29,7 +33,6 @@ Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 OR, To develop on ganache blockchain, open ganache and import the accounts by adding your ganache private keys in MetaMask.
-
 ### `truffle migrate`
 
 > ⚠️ If dealing with “JavaScript heap out of memory” error after `npm start` then use the following command to solve it: For Linux/macOs: `export NODE_OPTIONS="--max-old-space-size=8192"` 
