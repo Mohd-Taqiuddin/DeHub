@@ -52,3 +52,9 @@ DeHub application makes use of the following softwares:
 * Develop, deploy, and run tests the application with `Ganache` (local blockchain)
 * Build and use `React Js` to create components for single-page applications.
 * `Material-UI` to build faster, beautiful, and more accessible React applications.
+
+# Host the DApp on IPFS using Fleek
+You cannot call this project a "Decentralized Application" if you are hosting it on any centralized server. To make it decentralized, again we're going to use IPFS.
+Create a new repository on GitHub and push all the changes.
+Sign up on Fleek -> Add new site -> Connect GitHub repo -> select framework (React in our case) -> Deploy Site
+That's it! you'll get the fleek link of your DApp after deploying the site, you can assign a domain and share your DApp link with anyone in the world.
