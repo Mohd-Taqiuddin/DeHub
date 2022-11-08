@@ -49,7 +49,7 @@ export default function VideoPlayer({ account, contractData }) {
               style={{ maxheight: "720px" }}
             >
               <video
-                src={`https://w3s.link/ipfs/${currentHash}`}
+                src={`https://w3s.link/ipfs/${hash}`}
                 controls
               ></video>
             </div>
@@ -67,7 +67,7 @@ export default function VideoPlayer({ account, contractData }) {
                 <p>
                   <b>IPFS CID: </b>
                   <span>
-                    {currentHash}
+                    {hash}
                   </span>
                 </p>
                 <p>
