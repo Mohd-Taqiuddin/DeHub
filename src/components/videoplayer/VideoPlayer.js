@@ -36,7 +36,7 @@ export default function VideoPlayer({ account, contractData }) {
         console.log(currentDescription)
         console.log(videos)
         setPosts(videos);
-    },[])
+    },[description, title, hash])
 
   return (
     <div>
