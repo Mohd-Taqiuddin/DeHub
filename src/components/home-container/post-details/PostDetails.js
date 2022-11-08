@@ -69,20 +69,27 @@ function PostDetails({ account, contractData }) {
   }
 
   const loadData = async () => {
-    const totalLikes = await contractData.methods.likes(postName).call()
-    // const commentsCount = await contractData.methods.commentCount().call()
-    console.log('likes '+totalLikes)
-    const commentData = await contractData.methods.comments(account, postName).call()
-    console.log(commentData)
-    // for (var i = commentsCount; i >= 1; i--) {
-    //   const commentData = await contractData.methods.comments().call();
-    //   setComment(comment => [...comment, commentData]);
-    // }
-    // console.log(dataPost)
-    // console.log(postName)
-    if(dataPost !== undefined && dataPost.name===postName){
-      setLikes(totalLikes);
-      setComment(comment => [...comment, commentData]);
+    try {
+      const totalLikes = await contractData.methods.likes(postName).call()
+      // const commentsCount = await contractData.methods.commentCount().call()
+      console.log('likes '+totalLikes)
+      const commentData = await contractData.methods.comments(account, postName).call()
+      console.log(commentData)
+      // for (var i = commentsCount; i >= 1; i--) {
+      //   const commentData = await contractData.methods.comments().call();
+      //   setComment(comment => [...comment, commentData]);
+      // }
+      // console.log(dataPost)
+      // console.log(postName)
+      if(dataPost !== undefined && dataPost.name===postName){
+        setLikes(totalLikes);
+        setComment(comment => [...comment, commentData]);
+      }
+    } catch(e) {
+      console.log(e);
+      window.alert(
+                'Connect wallet or Contract is not deployed to the detected network. Connect to the correct network!',
+              )
     }
     
   }
