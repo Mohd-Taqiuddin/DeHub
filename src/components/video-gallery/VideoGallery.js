@@ -66,22 +66,13 @@ export default function VideoGallery({ account, contractData }) {
             currentHash = latest.hash
             currentTitle = latest.title
             currentDescription = latest.description
-            // const uniqueSet = new Set(postsData);
-            // const newPosts = [...uniqueSet]
-            // console.log(newPosts.length)
-            // setPostsData(postsData => newPosts)
             videos = postsData
-            // console.log(latest.hash)
-            // console.log(currentHash)
-            // console.log(currentHash)
-            // console.log(currentTitle)
-            // console.log(currentDescription)
             setLoading(false)
             setReload(true)
         } catch (error) {
-            // window.alert(
-            //     'Connect wallet or DeTube Contract is not deployed to the detected network. Connect to the correct network!',
-            //   )
+            window.alert(
+                'Connect wallet or DeTube Contract is not deployed to the detected network. Connect to the correct network!',
+              )
             console.log(error)
             setLoading(false)
         }
