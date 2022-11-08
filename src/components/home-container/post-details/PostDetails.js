@@ -133,20 +133,21 @@ function PostDetails({ account, contractData }) {
           addresses.push(account);
           console.log('push...'+addresses);
           setLikes(likes+1);
-        });      
-    } else {
-      const like = await contractData.methods
-      .likeDecrement(postName)
-      .send({ from: account })
-      .on("transactionHash", (hash) => {
-        addresses.splice(index, 1);
-        console.log('splice...'+addresses)
-      });
-      // var index = addresses.indexOf(account);
-      // if (index !== -1) {
-      // }
-      setLikes(likes-1);
+        });
     }
+//     } else {
+//       const like = await contractData.methods
+//       .likeDecrement(postName)
+//       .send({ from: account })
+//       .on("transactionHash", (hash) => {
+//         addresses.splice(index, 1);
+//         console.log('splice...'+addresses)
+//       });
+//       // var index = addresses.indexOf(account);
+//       // if (index !== -1) {
+//       // }
+//       setLikes(likes-1);
+//     }
   }
 
   return (
